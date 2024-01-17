@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #slider-container {
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    #slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+      width: 100%;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      background-color: #3498db;
+      color: #fff;
+    }
+
+    #prev {
+      left: 0;
+    }
+
+    #next {
+      right: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="slider-container">
+  <div id="slider">
+    <div class="slide"><img src="img1.jpg" alt="Image 1"></div>
+    <div class="slide"><img src="img2.jpg" alt="Image 2"></div>
+    <div class="slide"><img src="img3.jpg" alt="Image 3"></div>
+  </div>
+  <button id="prev" onclick="prevSlide()">Precedenta</button>
+  <button id="next" onclick="nextSlide()">Următoarea</button>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+
+  function showSlide(index) {
+    if (index < 0) {
+      currentSlide = totalSlides - 1;
+    } else if (index >= totalSlides) {
+      currentSlide = 0;
+    } else {
+      currentSlide = index;
+    }
+
+    const newPosition = -currentSlide * 100 + '%';
+    document.getElementById('slider').style.transform = 'translateX(' + newPosition + ')';
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function prevSlide() {
+    showSlide(currentSlide - 1);
+  }
+  setInterval(nextSlide, 3000);
+</script>
+
+</body>
+</html>
